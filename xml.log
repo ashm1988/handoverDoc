@@ -1,0 +1,17 @@
+2018-05-17 15:44:21,842: DEBUG: ['FIX50', 'FIX50SP1']
+2018-05-17 15:44:21,842: DEBUG: Getting frapiport
+2018-05-17 15:44:21,852: DEBUG: Getting core
+2018-05-17 15:44:21,852: DEBUG: Getting product
+2018-05-17 15:44:21,852: DEBUG: Getting description
+2018-05-17 15:44:21,852: DEBUG: Getting fix50sp1
+2018-05-17 15:44:21,861: DEBUG: Getting hostname
+2018-05-17 15:44:21,861: DEBUG: Getting riskport
+2018-05-17 15:44:21,869: DEBUG: Getting fix50
+2018-05-17 15:44:21,878: DEBUG: frapiport: ['Frapi Port', ".//Item[@name='FRAPI2']//Item[@name='Listener Port']", '10213']
+2018-05-17 15:44:21,878: DEBUG: core: ['Core Version', ".//Item[@name='Identity']/Item[@name='Version']", '4.1.2.22']
+2018-05-17 15:44:21,878: DEBUG: product: ['Product', ".//Item[@name='Identity']/Item[@name='Description']", 'FrontTrade']
+2018-05-17 15:44:21,878: DEBUG: description: ['Description', ".//Item[@name='Name']", 'ft4cme1']
+2018-05-17 15:44:21,878: DEBUG: fix50sp1: ['FIX50SP1 Port', ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='FIX50SP1']//Item[@name='Listener Port']", '10215']
+2018-05-17 15:44:21,878: DEBUG: hostname: ['Hostname', ".//Item[@name='Hostname']", 'CHI-AUR-GLBT-01']
+2018-05-17 15:44:21,878: DEBUG: riskport: ['Risk Port', ".//Item[@name='Risk Management']//Item[@name='Listener Port']", '10212']
+2018-05-17 15:44:21,878: DEBUG: fix50: ['FIX50 Port', ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='FIX50']//Item[@name='Listener Port']", '10214']
