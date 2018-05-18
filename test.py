@@ -93,6 +93,13 @@ def globex(xmlroot):
 
 def create_csv(data, exchadapters):
     data, networks = data
+    headings = []
+
+    for dicts in exchadapters:
+        for key in exchadapters[dicts]:
+            if not key in headings:
+                headings.append(key)
+
     f = open("Handover Doc2.csv", "w")
     f.write("Hostname:,%s\n" % data['hostname'][2])
     f.write("")
@@ -100,13 +107,21 @@ def create_csv(data, exchadapters):
     for network in networks:
         f.write("%s,%s\n" % (network[0], network[1]))
     f.write("\n")
-    for list in sorted(data.iterkeys(),reverse=True):
-        if re.search(r'port|fix', list):
-            f.write(data[list][0]+",")
+    for lists in sorted(data.iterkeys(),reverse=True):
+        if re.search(r'port|fix', lists):
+            f.write(data[lists][0]+",")
     f.write("\n")
-    for list in sorted(data.iterkeys(),reverse=True):
-        if re.search(r'port|fix', list):
-            f.write(data[list][2]+",")
+    for lists in sorted(data.iterkeys(),reverse=True):
+        if re.search(r'port|fix', lists):
+            f.write(data[lists][2]+",")
+    f.write("\n\nExchange Adapters\n")
+    for heading in headings:
+        f.write("%s," % heading)
+    f.write("\n")
+    for adapters in exchadapters:
+        for key,  in exchadapters[adapters].items():
+            print v
+
 
 
 
