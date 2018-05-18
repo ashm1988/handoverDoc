@@ -13,13 +13,16 @@ from openpyxl import Workbook
 # logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', filename='xml.log', filemode='w', level=logging.DEBUG)
 
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
-# tree = ET.parse('MSGW.xml')
+# tree = ET.parse('XMLFile1.xml')
 tree = ET.parse('MSGW.xml')
 xmlroot = tree.getroot()
 
+
 def analytics_info(xmlroot):
-    network_ips = {}
     fix_acceptors = []
+    network_names = []
+    network_ips = []
+
 
     # Build dictionary
     data = {
@@ -37,33 +40,34 @@ def analytics_info(xmlroot):
     logging.debug(fix_acceptors)
 
     for acceptor in fix_acceptors:
-        data["%s" % acceptor.lower()] = ["%s Port" % acceptor, ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='%s']//Item[@name='Listener Port']" % (acceptor)]
-
-    # # Get Network IPs
-    # for networks in xmlroot.find(".//Item[@name='Network']"):
-    #     for network in networks.findall(".//Item[@name='IPs']"):
-    #         network_ips.append(network.attrib.get('value'))
-
-    for networks in xmlroot.find(".//Item[@name='Network']"):
-        for network in networks.findall(".//Item[@name]"):
-            print network.attrib.get('name'), ": ", network.attrib.get('value')
+        data["%s" % acceptor.lower()] = ["%s Port" % acceptor, ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='%s']//Item[@name='Listener Port']" % acceptor]
 
     # Add values to dictionary
     for instance in data:
         logging.debug("Getting %s", instance)
         data[instance].append(xmlroot.find(data[instance][1]).attrib.get('value'))
+    for dicts in data:
+        logging.debug("%s: %s", dicts, data[dicts])
+
+    # Get Network IPs
+    for network in xmlroot.findall(".//Item[@name='Network']/Item[@name]/Item[@name='Description']"):
+        network_names.append(network.attrib.get('value'))
+    for network in xmlroot.findall(".//Item[@name='Network']/Item[@name]/Item[@name='IPs']"):
+        network_ips.append(network.attrib.get('value'))
+    networks = (zip(network_names, network_ips))
+    for network in networks:
+        logging.debug(network)
+
+
 
     # If Globex run the below (currently just running as a test)
     # globex(xmlroot)
 
     # logging.debug(data)
 
-    for dicts in data:
-        logging.debug("%s: %s", dicts, data[dicts])
 
-    logging.debug("network IPs: %s", network_ips)
 
-    return data, network_ips
+    return data, networks
 
 
 def globex(xmlroot):
@@ -87,25 +91,58 @@ def globex(xmlroot):
     return globex
 
 
-def excel_workbook(data, exehadapter):
-    data, network_ips = data
-    wb = Workbook()
-    sheet = wb.active
-    sheet.title = network_ips[1] + "_" + data["description"][2]
-    headings = ['test', 'test2', 'test3']
+def create_csv(data, exchadapters):
+    data, networks = data
+    f = open("Handover Doc2.csv", "w")
+    f.write("Hostname:,%s\n" % data['hostname'][2])
+    f.write("")
+    f.write("Network IPs:\n")
+    for network in networks:
+        f.write("%s,%s\n" % (network[0], network[1]))
+    f.write("\n")
+    for list in sorted(data.iterkeys(),reverse=True):
+        if re.search(r'port|fix', list):
+            f.write(data[list][0]+",")
+    f.write("\n")
+    for list in sorted(data.iterkeys(),reverse=True):
+        if re.search(r'port|fix', list):
+            f.write(data[list][2]+",")
 
-    for heading in sheet.iter_rows(min_row=1):
-        sheet.append(headings)
 
 
 
-    wb.save('Handover Doc.xlsx')
+
+    f.write("\n")
+    f.write("\n")
+    f.write("\n")
+    f.close()
+
+
+# def excel_workbook(data, exehadapter):
+#     data, networks = data
+#     wb = Workbook()
+#     sheet = wb.active
+#     sheet.title = data["hostname"][2]+"_"+data["description"][2]
+#     # print wb.sheetnames
+#
+#     # sheet['A1'] = "Hostname:"
+#     # sheet.append(data["hostname"][2])
+#     # sheet.append("Network IPs:")
+#     # for network in networks:
+#     #     sheet.append(network)
+#
+#     sheet.append(data)
+#
+#
+#     wb.save('Handover Doc.xlsx')
 
 
 def main():
     data = analytics_info(xmlroot)
     exchadapter = globex(xmlroot)
-    excel_workbook(data, exchadapter)
+    create_csv(data, exchadapter)
+    # excel_workbook(data, exchadapter)
+
 
 if __name__ == '__main__':
     main()
