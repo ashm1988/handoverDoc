@@ -22,6 +22,7 @@ def analytics_info(xmlroot):
     fix_acceptors = []
     network_names = []
     network_ips = []
+    users = {}
 
 
     # Build dictionary
@@ -58,7 +59,22 @@ def analytics_info(xmlroot):
     for network in networks:
         logging.debug(network)
 
+    # Get users
+    for user in xmlroot.find(".//Item[@name='Users']"):
+        logging.debug("User: %s", user.attrib.get('name'))
+        if user.find(".//Item[@name='Trading']//Item[@name='Orderbooks']") is not None:
+            # logging.debug("Orderbook: %s", orderbook.attrib.get('name'))
+            if user not in users:
+                users[user.attrib.get('name')] = []
+            for orderbook in user.find(".//Item[@name='Trading']//Item[@name='Orderbooks']"):
+                users[user.attrib.get('name')].append(orderbook.attrib.get('name'))
+                logging.debug(orderbook)
 
+
+
+
+    for user in users:
+        logging.debug("User %s: Orderbook %s", user, users[user])
 
     # If Globex run the below (currently just running as a test)
     # globex(xmlroot)
@@ -67,7 +83,7 @@ def analytics_info(xmlroot):
 
 
 
-    return data, networks
+    return data, networks, users
 
 
 def globex(xmlroot):
@@ -78,10 +94,10 @@ def globex(xmlroot):
     for exchadapter in xmlroot.find(".//Item[@name='Exchange Adapters']"):
         exchadapters.append(exchadapter.attrib.get('name'))
 
-    # Collect all the exchange seesion info into a dictionary called Globex
+    # Collect all the exchange session info into a dictionary called Globex
     for adapter in exchadapters:
         for values in xmlroot.find(".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
-            if not adapter in globex:
+            if adapter not in globex:
                 globex[adapter] = {}
             globex[adapter][values.attrib.get('name')] = values.attrib.get('value')
 
@@ -92,7 +108,7 @@ def globex(xmlroot):
 
 
 def create_csv(data, exchadapters):
-    data, networks = data
+    data, networks, users = data
     headings = []
 
     for dicts in exchadapters:
@@ -100,9 +116,9 @@ def create_csv(data, exchadapters):
             if not key in headings:
                 headings.append(key)
 
-    f = open("Handover Doc2.csv", "w")
+    f = open(data["hostname"][2]+"_"+data["description"][2]+".csv", "w")
     f.write("Hostname:,%s\n" % data['hostname'][2])
-    f.write("")
+    f.write("Instance:, %s\n" % data["description"][2])
     f.write("Network IPs:\n")
     for network in networks:
         f.write("%s,%s\n" % (network[0], network[1]))
@@ -119,8 +135,19 @@ def create_csv(data, exchadapters):
         f.write("%s," % heading)
     f.write("\n")
     for adapters in exchadapters:
-        for key,  in exchadapters[adapters].items():
-            print v
+        for key, value in exchadapters[adapters].items():
+            f.write("%s," % value)
+        f.write("\n")
+    f.write("\n")
+    f.write("\n")
+    for user, orderbooks in users.items():
+        print user
+        f.write("%s" % user)
+        for orderbook in orderbooks:
+            print orderbook
+            f.write(",%s" % orderbook)
+        f.write("\n")
+
 
 
 
