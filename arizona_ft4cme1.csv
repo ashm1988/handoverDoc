@@ -1,0 +1,98 @@
+Hostname:,arizona
+Instance:, ft4cme1
+Network IPs:
+lo,127.0.0.1
+eth2,172.28.101.10
+
+Risk Port,Frapi Port,FIX50SP1 Port,FIX50 Port,
+40901,40201,40501,40401,
+
+Exchange Adapters
+Firm ID,Sub-Exchanges,Market Segment Gateway,Logging,Target Port,Session ID,Target Address,
+660,None,false,None,25888,T62,69.50.112.141,
+
+
+hertshten3,hertshten3
+hertshten2,hertshten2
+hertshten1,hertshten1
+iang,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+inbar_sim2,Inbar
+kk_fixdc,kk_test
+hertshten5,hertshten5
+hertshten4,hertshten4
+AshFix,Ash,AshFix
+utrade_1,utrade
+FME22_CM_T1,FME22_CM_T1
+aholland,aholland
+igrisk2,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+otmonitor2,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+FME2_CB_T1,FME2_CB_T1
+joefix5,jmetcalf
+miketrumbell,miketrumbell
+jbenet,jbenet
+kk_risk,kk_test
+FMET_CB_T1,FMET_CM_RP
+acoulter,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+finopiquez,finopiquez
+FMET_CB_T2,FMET_CM_RP
+otmonitor,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+kk_rm,kk_test
+joerisk,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+dkawa,dkawa
+FME21_CM_T1,FME21_CM_T1
+kkirby,kkirby
+inbar_sim1,Inbar
+kk_fix5,kk_fix
+objectplus2,objectplus_RP
+utrade_2,utrade
+objectplus1,objectplus_RP
+mcoyne,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+jbenet2,jbenet
+AshRisk,Ash
+cmitchell,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+Inbarrisk,Inbar
+FME2_CM_T1,FME2_CME_RP,FME1_CME_RP
+starmark_sup2,starmark_sup
+pxayariboun,pxayariboun
+oc_risk,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+otrisk,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+ndombkowski,ndombkowski
+kk_test,kk_test
+igrisk,OT
+joefrapi,jmetcalf
+FME21_CB_T1,FME21_CB_T1
+rayfrapi,rburling
+Relative1,Relative
+FMET_CM_T1,FMET_CM_RP
+FMET_CM_T2,FMET_CM_RP
+FMET_CM_T3,FMET_CM_RP
+deltix1,deltix1
+marextest,marextest
+deltix3,deltix3
+deltix2,deltix2
+FMET_CE_T1,FMET_CE_RP
+edfmandc,utrade,starmark
+remmer,remmer
+amcfarlane,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+vegasoul_sim2,vegasoul_sim1
+vegasoul_sim1,vegasoul_sim1
+starmark_sup1,starmark_sup
+AshFrapi,Ash
+iang2,iang2
+rburling,rburling
+Ashfix_5sp1,AshFix
+marexrisk,marex
+otmonitor3,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+FME1_CM_T1,FME2_CME_RP,FME1_CME_RP
+FME3_CM_T1,FME2_CME_RP,FME1_CME_RP
+tmorgan,tmorgan
+FMET_CE_T2,FMET_CE_RP
+Inbar,Inbar
+marge,marge
+rbansal,ne,utrade,deltix,tmorgan,dkawa,FME CME,Inbar,marex,finopiquez,Brahman,marge,hertshten,pxayariboun,vegasoul,objectplus_RP,ckatsulis,metro_sim1,starmark,OT,tradingscreen,Relative,sivron5,Riskbone,JPM,miketrumbell
+rayfrapi2,rburling,finopiquez
+igrieves,igrieves
+fpotter,fpotter
+
+
+
