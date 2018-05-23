@@ -58,6 +58,33 @@ def get_orderbooks(xmlroot, orderbooks):
     return orderbooks
 
 
+def user_orderbook(xmlroot, orderbooks):
+    user_accounts = {}  # dict for the user accounts and accociated parent orderbooks
+    users_orderbooks = {}  # dict for users and all assigned (including child) orderbooks
+
+    # Collects all users and accociated parent orderbooks and adds them to the user_account dict as below example
+    #                                                           user_account = {amcfarlane: [amcfarlane, ne, etc..]
+    for users in xmlroot.find(".//Item[@name='User Management']//Item[@name='Users']"):
+        if users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']"):
+            user_accounts[users.attrib.get('name')] = []
+            for user in users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']"):
+                user_accounts[users.attrib.get('name')].append(user.attrib.get('name'))
+
+    # Diffs the orderbooks assigned to the users in the user_accounts dict against the Orderbooks dict from
+    # get_orderbooks() and then adds the users with all the child orderbooks to users_orderbooks dict as below example
+    #                                  user_orderbooks = {amcfarlane: [OT, amcfarlane, fpotter, ne, ne-trader1, etc..]
+    for user, orderbook in user_accounts.items():  # find the user to get the orderbooks for
+        users_orderbooks[user] = []
+        for orderbook in user_accounts[user]:
+            for ob in orderbooks[orderbook]:
+                print "User: %s, Orderbook: %s, Child orderbooks: %s" % (user, orderbook, ob)
+                users_orderbooks[user].append(ob)
+
+    # print example
+    for user in users_orderbooks:
+        print user, users_orderbooks[user]
+
+
 def get_orderbooks2(xmlroot, orderbooks):
     findstr = ".//Item[@name='Order Management']//Item[@name='Orderbooks']"
     grandparent = xmlroot.find(findstr)
@@ -100,6 +127,7 @@ def main():
     # get_orderbooks_joe(xmlroot)
     #flat_orderbooks = flat_ob(xmlroot, orderbooks)
     printorderbooks(flat_orderbooks)
+    user_orderbook(xmlroot, flat_orderbooks)
 
 
 if __name__ == '__main__':
