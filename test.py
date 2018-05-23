@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ET
-import mysql.connector
 import argparse
 import datetime
 import logging
@@ -12,10 +11,10 @@ from openpyxl import Workbook
 
 # logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', filename='xml.log', filemode='w', level=logging.DEBUG)
 
-logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
-# tree = ET.parse('MSGW.xml')
+# logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
 tree = ET.parse('MSGW.xml')
 xmlroot = tree.getroot()
+
 
 def analytics_info(xmlroot):
     network_ips = {}
@@ -46,7 +45,7 @@ def analytics_info(xmlroot):
 
     for networks in xmlroot.find(".//Item[@name='Network']"):
         for network in networks.findall(".//Item[@name]"):
-            print network.attrib.get('name'), ": ", network.attrib.get('value')
+            print network.attrib.get('value')
 
     # Add values to dictionary
     for instance in data:
@@ -91,7 +90,7 @@ def excel_workbook(data, exehadapter):
     data, network_ips = data
     wb = Workbook()
     sheet = wb.active
-    sheet.title = network_ips[1] + "_" + data["description"][2]
+    # sheet.title = network_ips[1] + "_" + data["description"][2]
     headings = ['test', 'test2', 'test3']
 
     for heading in sheet.iter_rows(min_row=1):
