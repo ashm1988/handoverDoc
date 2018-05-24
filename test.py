@@ -11,7 +11,8 @@ from openpyxl import Workbook
 
 # logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', filename='xml.log', filemode='w', level=logging.DEBUG)
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
-tree = ET.parse('XMLFile1.xml')
+# tree = ET.parse('XMLFile1.xml')
+tree = ET.parse('ICE.xml')
 # tree = ET.parse('MSGW.xml')
 xmlroot = tree.getroot()
 
@@ -46,10 +47,10 @@ def analytics_info(xmlroot):
     #     for network in networks.findall(".//Item[@name='IPs']"):
     #         network_ips.append(network.attrib.get('value'))
 
-    for networks in xmlroot.find(".//Item[@name='Network']"):
-        for network in networks.findall(".//Item[@name]"):
-            print network.attrib.get('value')
-        data["%s" % acceptor.lower()] = ["%s Port" % acceptor, ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='%s']//Item[@name='Listener Port']" % acceptor]
+    # for networks in xmlroot.find(".//Item[@name='Network']"):
+    #     # for network in networks.findall(".//Item[@name]"):
+    #     #     print network.attrib.get('value')
+    #     data["%s" % acceptor.lower()] = ["%s Port" % acceptor, ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='%s']//Item[@name='Listener Port']" % acceptor]
 
     # Add values to dictionary
     for instance in data:
@@ -173,12 +174,11 @@ def user_orderbook(xmlroot):
         users_orderbooks[user] = []
         for orderbook in user_accounts[user]:
             for ob in orderbooks[orderbook]:
-                print "User: %s, Orderbook: %s, Child orderbooks: %s" % (user, orderbook, ob)
                 users_orderbooks[user].append(ob)
 
     # print example
     for user in users_orderbooks:
-        print user, users_orderbooks[user]
+        logging.debug("User Orderbooks: %s %s", user, users_orderbooks[user])
 
     return users_orderbooks
 
