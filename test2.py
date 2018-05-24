@@ -1,11 +1,3 @@
-#
-# Orderbooks = {
-#     "amcfarlane": ["ashfix", "ashfix1", "ashfrapi", "amcfarlane"],
-#     "ashfix": ["ashfix", "ashfix1"],
-#     "ashfrapi": ["ashfrapi"],
-# }
-
-
 import xml.etree.ElementTree as ET
 import mysql.connector
 import argparse
@@ -29,6 +21,7 @@ orderbooks = {}
 def get_orderbooks_joe(xmlroot, flatten):
     for orderbook in xmlroot.find(".//Item[@name='Order Management']//Item[@name='Orderbooks']"):
         get_orderbooks_recurse_joe(orderbook.attrib.get('name'), orderbook)
+
 
 def get_orderbooks_recurse_joe(parentKey, orderbooks):
     for child in orderbooks.find(".//Item[@name='Children']"):
