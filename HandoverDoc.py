@@ -59,8 +59,6 @@ class XMLProcess(object):
 class CreateSocket(XMLProcess):
     def __init__(self, conn_file, category):
         XMLProcess.__init__(self, conn_file, category)
-        self.new_socket = None
-        self.xml = None
 
     def connect_socket(self, connection):
         """ Creates a socket connection, connects to the connections in the dictionary and sends log on request """
@@ -115,7 +113,7 @@ class CreateSocket(XMLProcess):
         logging.debug('Connection to analytics successful and data received')
         del total_data[:2]
         self.xml = ''.join(total_data)
-        # logging.debug("Received data: "+self.xml)
+        logging.debug("Received data: "+self.xml)
         self.xmlroot = ET.fromstring(self.xml)
 
 
@@ -198,31 +196,29 @@ class ProcessAnalyticData(CreateSocket):
             logging.debug("%s: %s", dicts, self.data[dicts])
 
     def get_orderbooks(self):
-        orderbooks = {}
+        self.orderbooks = {}
         for grandparent in self.xmlroot.find(".//Item[@name='Order Management']//Item[@name='Orderbooks']"):
-            orderbooks[grandparent.attrib.get('name')] = [grandparent.attrib.get('name')]
+            self.orderbooks[grandparent.attrib.get('name')] = [grandparent.attrib.get('name')]
 
             for parent in grandparent.find(".//Item[@name='Children']"):
-                orderbooks[parent.attrib.get('name')] = [parent.attrib.get('name')]
-                orderbooks[grandparent.attrib.get('name')].append(parent.attrib.get('name'))
+                self.orderbooks[parent.attrib.get('name')] = [parent.attrib.get('name')]
+                self.orderbooks[grandparent.attrib.get('name')].append(parent.attrib.get('name'))
 
                 for child in parent.find(".//Item[@name='Children']"):
-                    orderbooks[child.attrib.get('name')] = [child.attrib.get('name')]
-                    orderbooks[parent.attrib.get('name')].append(child.attrib.get('name'))
-                    orderbooks[grandparent.attrib.get('name')].append(child.attrib.get('name'))
+                    self.orderbooks[child.attrib.get('name')] = [child.attrib.get('name')]
+                    self.orderbooks[parent.attrib.get('name')].append(child.attrib.get('name'))
+                    self.orderbooks[grandparent.attrib.get('name')].append(child.attrib.get('name'))
 
                     for baby in child.find(".//Item[@name='Children']"):
-                        orderbooks[baby.attrib.get('name')] = [baby.attrib.get('name')]
-                        orderbooks[child.attrib.get('name')].append(baby.attrib.get('name'))
-                        orderbooks[parent.attrib.get('name')].append(baby.attrib.get('name'))
-                        orderbooks[grandparent.attrib.get('name')].append(baby.attrib.get('name'))
-
-        return orderbooks
+                        self.orderbooks[baby.attrib.get('name')] = [baby.attrib.get('name')]
+                        self.orderbooks[child.attrib.get('name')].append(baby.attrib.get('name'))
+                        self.orderbooks[parent.attrib.get('name')].append(baby.attrib.get('name'))
+                        self.orderbooks[grandparent.attrib.get('name')].append(baby.attrib.get('name'))
 
     def user_orderbook(self):
-        orderbooks = get_orderbooks(self.xmlroot)
+        ProcessAnalyticData.get_orderbooks(self)
         user_accounts = {}  # dict for the user accounts and accociated parent orderbooks
-        users_orderbooks = {}  # dict for users and all assigned (including child) orderbooks
+        self.users_orderbooks = {}  # dict for users and all assigned (including child) orderbooks
 
         # Collects all users and accociated parent orderbooks and adds them to the user_account dict as below example
         #                                                           user_account = {amcfarlane: [amcfarlane, ne, etc..]
@@ -235,17 +231,15 @@ class ProcessAnalyticData(CreateSocket):
         # Diffs the orderbooks assigned to the users in the user_accounts dict against the Orderbooks dict from
         # get_orderbooks() and then adds the users with all the child orderbooks to users_orderbooks dict as below example
         #                                  user_orderbooks = {amcfarlane: [OT, amcfarlane, fpotter, ne, ne-trader1, etc..]
-        for user, orderbook in user_accounts.items():  # find the user to get the orderbooks for
-            users_orderbooks[user] = []
+        for user, orderbook in self.user_accounts.items():  # find the user to get the orderbooks for
+            self.users_orderbooks[user] = []
             for orderbook in user_accounts[user]:
-                for ob in orderbooks[orderbook]:
-                    users_orderbooks[user].append(ob)
+                for ob in self.orderbooks[orderbook]:
+                    self.users_orderbooks[user].append(ob)
 
         # print example
-        for user in users_orderbooks:
-            logging.debug("User Orderbooks: %s %s", user, users_orderbooks[user])
-
-        return users_orderbooks
+        for user in self.users_orderbooks:
+            logging.debug("User Orderbooks: %s %s", user, self.users_orderbooks[user])
 
     def create_csv(self, data, exchadapters, orderbooks):
         logging.debug("writing csv")
@@ -321,8 +315,6 @@ class ExchangeAdapters(ProcessAnalyticData):
             logging.debug("%s: %s", dicts, globex[dicts].items())
 
 
-
-
 def main():
 
     # Parse command line arguments
@@ -339,12 +331,10 @@ def main():
         # try:
         connection.connect_socket(conn)
         connection.receive_data()
-        # connection.GetXMLRoot()
-        # connection.printit()
         connection.frontprice()
+        connection.user_orderbook()
         # except:
         #     pass
-
 
 
 if __name__ == '__main__':
