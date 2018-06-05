@@ -2244,35 +2244,35 @@
       <MonitoringWindowConfiguration>
         <Name>Mo</Name>
         <StartDay>Monday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Monday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Tu</Name>
         <StartDay>Tuesday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Tuesday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>We</Name>
         <StartDay>Wednesday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Wednesday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Th</Name>
         <StartDay>Thursday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Thursday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Fr</Name>
         <StartDay>Friday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Friday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
@@ -2313,35 +2313,35 @@
       <MonitoringWindowConfiguration>
         <Name>Mo</Name>
         <StartDay>Monday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Monday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Tu</Name>
         <StartDay>Tuesday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Tuesday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>We</Name>
         <StartDay>Wednesday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Wednesday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Th</Name>
         <StartDay>Thursday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Thursday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
       <MonitoringWindowConfiguration>
         <Name>Fr</Name>
         <StartDay>Friday</StartDay>
-        <StartTime>06:35</StartTime>
+        <StartTime>06:30</StartTime>
         <EndDay>Friday</EndDay>
         <EndTime>17:00</EndTime>
       </MonitoringWindowConfiguration>
@@ -5271,7 +5271,7 @@
   </ConnectionConfiguration>
   <ConnectionConfiguration>
     <Enabled>true</Enabled>
-    <Name>CAM-PRD-WIN-S01-SFE-FPS3-FME</Name>
+    <Name>CAM-PRD-WIN-S01-ASX-FPS4-FME</Name>
     <DisplayName />
     <ViewPosition>0</ViewPosition>
     <Type>FrontPriceSatellite</Type>
@@ -5332,7 +5332,7 @@
       </MonitoringWindowConfiguration>
     </MonitoringWindows>
     <ExchangeHolidays />
-    <Exchange>SFE</Exchange>
+    <Exchange>ASX</Exchange>
     <Customer>FME</Customer>
     <Broker />
     <FRVersion>FR3</FRVersion>
@@ -5539,7 +5539,7 @@
     <Password>0tsupp0rt</Password>
     <ShellUsername>admin</ShellUsername>
     <ILO_URL>https://172.28.101.60</ILO_URL>
-    <AnalyticsPort>10218</AnalyticsPort>
+    <AnalyticsPort>40001</AnalyticsPort>
     <RiskAPIPort>10312</RiskAPIPort>
     <Logging>true</Logging>
     <MonitoringWindows>
@@ -6213,38 +6213,5 @@
     <FreeText />
     <Instance />
     <ConnectionTimeZone>Eastern Standard Time</ConnectionTimeZone>
-  </ConnectionConfiguration>
-  <ConnectionConfiguration>
-    <Enabled>false</Enabled>
-    <Name>--FT4-</Name>
-    <DisplayName />
-    <ViewPosition>0</ViewPosition>
-    <Type>FrontTrade</Type>
-    <Category>Production</Category>
-    <Address>w.x.y.z</Address>
-    <Port>10045</Port>
-    <ShellPort>0</ShellPort>
-    <HeartbeatPeriod>5</HeartbeatPeriod>
-    <Username>otmonitor</Username>
-    <Password>0tsupp0rt</Password>
-    <ShellUsername>otadmin</ShellUsername>
-    <ILO_URL />
-    <AnalyticsPort>0</AnalyticsPort>
-    <RiskAPIPort>0</RiskAPIPort>
-    <Logging>false</Logging>
-    <MonitoringWindows />
-    <ExchangeHolidays />
-    <Exchange />
-    <Customer />
-    <Broker />
-    <FRVersion>FR4</FRVersion>
-    <DataCentre />
-    <Partner />
-    <ServerName />
-    <OS>Centos</OS>
-    <Serial />
-    <FreeText />
-    <Instance />
-    <ConnectionTimeZone>GMT Standard Time</ConnectionTimeZone>
   </ConnectionConfiguration>
 </ArrayOfConnectionConfiguration>

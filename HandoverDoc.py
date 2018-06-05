@@ -113,7 +113,7 @@ class CreateSocket(XMLProcess):
         logging.debug('Connection to analytics successful and data received')
         del total_data[:2]
         self.xml = ''.join(total_data)
-        logging.debug("Received data: "+self.xml)
+        # logging.debug("Received data: "+self.xml)
         self.xmlroot = ET.fromstring(self.xml)
 
 
@@ -121,13 +121,15 @@ class ProcessAnalyticData(CreateSocket):
     def __init__(self, conn_file, category):
         CreateSocket.__init__(self, conn_file, category)
 
-    def common_info(self):
+    def common_info(self, analytics_port):
         network_names = []
         network_ips = []
-        users = {}
+        # self.users = {}
+        self.analytics_port = analytics_port
 
         # Build common data dictionary
         self.data = {
+            "type": ["Server Type", ".//Item[@name='Identity']//Item[@name='Label']"],
             "core": ["Core Version", ".//Item[@name='Identity']/Item[@name='Version']"],
             "product": ["Product", ".//Item[@name='Identity']/Item[@name='Description']"],
             "hostname": ["Hostname", ".//Item[@name='Hostname']"],
@@ -145,27 +147,19 @@ class ProcessAnalyticData(CreateSocket):
             logging.debug(network)
 
         # Get users
-        for user in self.xmlroot.find(".//Item[@name='Users']"):
-            logging.debug("User: %s", user.attrib.get('name'))
-            if user.find(".//Item[@name='Trading']//Item[@name='Orderbooks']") is not None:
-                # logging.debug("Orderbook: %s", orderbook.attrib.get('name'))
-                if user not in users:
-                    users[user.attrib.get('name')] = []
-                for orderbook in user.find(".//Item[@name='Trading']//Item[@name='Orderbooks']"):
-                    users[user.attrib.get('name')].append(orderbook.attrib.get('name'))
-                    logging.debug(orderbook)
-        for user in users:
-            logging.debug("User %s: Orderbook %s", user, users[user])
+        self.users = []
+        for users in self.xmlroot.find(".//Item[@name='User Management']//Item[@name='Users']"):
+            # if users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']"):
+            self.users.append(users.attrib.get('name'))
 
-        # Add values to dictionary
-        for instance in self.data:
-            logging.debug("Getting %s", instance)
-            self.data[instance].append(self.xmlroot.find(self.data[instance][1]).attrib.get('value'))
-        for dicts in self.data:
-            logging.debug("%s: %s", dicts, self.data[dicts])
+        if self.xmlroot.find(".//Item[@name='Identity']//Item[@name='Label']").attrib.get('value') == 'FrontTrade':
+            logging.debug('Common Info: Passing to FrontTrade')
+            ProcessAnalyticData.fronttrade(self)
+        else:
+            logging.debug('Common Info: Passing to FrontPrice')
+            ProcessAnalyticData.frontprice(self)
 
     def fronttrade(self):
-        ProcessAnalyticData.common_info(self)
         fix_acceptors = []
 
         # Build dictionary
@@ -174,28 +168,27 @@ class ProcessAnalyticData(CreateSocket):
         # Add fix acceptors to the dictionary
         for fix_acceptor in self.xmlroot.find(".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']"):
             fix_acceptors.append(fix_acceptor.attrib.get('name'))
-        logging.debug(fix_acceptors)
+        logging.debug("Available fix acceptors %s", fix_acceptors)
 
         for acceptor in fix_acceptors:
             self.data["%s" % acceptor.lower()] = ["%s Port" % acceptor,
                                              ".//Item[@name='Client Adapters']/Item[@name='FIX']/Item[@name='Acceptors']//Item[@name='%s']//Item[@name='Listener Port']" % (
                                              acceptor)]
 
+        ProcessAnalyticData.combine_users_and_orderbooks(self)
+        ProcessAnalyticData.update_dictionary(self)
+        self.exchange_details, self.headings = ExchangeAdapters(self.xml, self.xmlroot).globex()
+        ProcessAnalyticData.create_csv(self)
+
     def frontprice(self):
-        ProcessAnalyticData.common_info(self)
+        if self.xmlroot.find(".//Item[@name='Client Adapters']//Item[@name='FIX42']//Item[@name='Listener Port']") is not None:
+            self.data["fix42"] = ["Fix42 Port", ".//Item[@name='Client Adapters']//Item[@name='FIX42']//Item[@name='Listener Port']"]
 
-        # if self.xmlroot.find(".//Item[@name='Client Adapters']//Item[@name='FIX42']//Item[@name='Listener Port']"):
-        self.data["fix42"] = ["Fix42 Port", ".//Item[@name='Client Adapters']//Item[@name='FIX42']//Item[@name='Listener Port']"]
-
-
-        # Add values to dictionary
-        for instance in self.data:
-            logging.debug("Getting %s", instance)
-            self.data[instance].append(self.xmlroot.find(self.data[instance][1]).attrib.get('value'))
-        for dicts in self.data:
-            logging.debug("%s: %s", dicts, self.data[dicts])
+        ProcessAnalyticData.update_dictionary(self)
+        ProcessAnalyticData.create_csv(self)
 
     def get_orderbooks(self):
+        """ Get orderbook list """
         self.orderbooks = {}
         for grandparent in self.xmlroot.find(".//Item[@name='Order Management']//Item[@name='Orderbooks']"):
             self.orderbooks[grandparent.attrib.get('name')] = [grandparent.attrib.get('name')]
@@ -215,7 +208,7 @@ class ProcessAnalyticData(CreateSocket):
                         self.orderbooks[parent.attrib.get('name')].append(baby.attrib.get('name'))
                         self.orderbooks[grandparent.attrib.get('name')].append(baby.attrib.get('name'))
 
-    def user_orderbook(self):
+    def combine_users_and_orderbooks(self):
         ProcessAnalyticData.get_orderbooks(self)
         user_accounts = {}  # dict for the user accounts and accociated parent orderbooks
         self.users_orderbooks = {}  # dict for users and all assigned (including child) orderbooks
@@ -229,9 +222,9 @@ class ProcessAnalyticData(CreateSocket):
                     user_accounts[users.attrib.get('name')].append(user.attrib.get('name'))
 
         # Diffs the orderbooks assigned to the users in the user_accounts dict against the Orderbooks dict from
-        # get_orderbooks() and then adds the users with all the child orderbooks to users_orderbooks dict as below example
-        #                                  user_orderbooks = {amcfarlane: [OT, amcfarlane, fpotter, ne, ne-trader1, etc..]
-        for user, orderbook in self.user_accounts.items():  # find the user to get the orderbooks for
+        # get_orderbooks() and then adds the users with all the child orderbooks to users_orderbooks dict as below
+        # example user_orderbooks = {amcfarlane: [OT, amcfarlane, fpotter, ne, ne-trader1, etc..]
+        for user, orderbook in user_accounts.items():  # find the user to get the orderbooks for
             self.users_orderbooks[user] = []
             for orderbook in user_accounts[user]:
                 for ob in self.orderbooks[orderbook]:
@@ -241,63 +234,78 @@ class ProcessAnalyticData(CreateSocket):
         for user in self.users_orderbooks:
             logging.debug("User Orderbooks: %s %s", user, self.users_orderbooks[user])
 
-    def create_csv(self, data, exchadapters, orderbooks):
+    def update_dictionary(self):
+        # Add values to dictionary
+        for instance in self.data:
+            logging.debug("Getting %s", instance)
+            self.data[instance].append(self.xmlroot.find(self.data[instance][1]).attrib.get('value'))
+        #  Add analytics port
+        self.data['analyticsport'] = ['Analytics Port', '', self.analytics_port]
+        for dicts in self.data:
+            logging.debug("%s: %s", dicts, self.data[dicts])
+
+    def create_csv(self):
         logging.debug("writing csv")
-        data, networks, users = data
-        headings = []
 
-        for dicts in exchadapters:
-            for key in exchadapters[dicts]:
-                if not key in headings:
-                    headings.append(key)
+        #  Create csv as hostname_instance
+        f = open(self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv", "w")
+        f.write("Hostname:,%s\n" % self.data['hostname'][2])
+        f.write("Instance:,%s\n" % self.data["description"][2])
 
-        f = open(data["hostname"][2] + "_" + data["description"][2] + ".csv", "w")
-        f.write("Hostname:,%s\n" % data['hostname'][2])
-        f.write("Instance:,%s\n" % data["description"][2])
+        #  Add server IPS
         f.write("Network IPs:\n")
-        for network in networks:
+        for network in self.networks:
             f.write("%s,%s\n" % (network[0], network[1]))
         f.write("\n")
-        for lists in sorted(data.iterkeys(), reverse=True):
-            if re.search(r'port|fix', lists):
-                f.write(data[lists][0] + ",")
-        f.write("\n")
-        for lists in sorted(data.iterkeys(), reverse=True):
-            if re.search(r'port|fix', lists):
-                f.write(data[lists][2] + ",")
-        f.write("\n\nExchange Adapters\n")
-        for heading in headings:
-            f.write("%s," % heading)
-        f.write("\n")
-        for adapters in exchadapters:
-            for key, value in exchadapters[adapters].items():
-                f.write("%s," % value)
-            f.write("\n")
-        f.write("\n")
-        f.write("Users, Associated accounts:\n")
-        for users, orderbooks in sorted(orderbooks.iteritems()):
-            f.write("%s" % users)
-            for orderbook in sorted(orderbooks):
-                f.write(",%s" % orderbook)
-            f.write("\n")
 
+        #  Add instance Port headings
+        for lists in sorted(self.data.iterkeys(), reverse=True):
+            if re.search(r'port|fix', lists):
+                f.write(self.data[lists][0] + ",")
+        f.write("\n")
+        #  Add ports
+        for lists in sorted(self.data.iterkeys(), reverse=True):
+            if re.search(r'port|fix', lists):
+                f.write(self.data[lists][2] + ",")
         f.write("\n")
         f.write("\n")
-        f.write("\n")
+
+        #  If FrontTrade Add user accounts and Exchange adapters, if Price just add users
+        if self.data['type'][2] == 'FrontTrade':
+            # Add Exchange adapter info
+            for heading in self.headings:
+                f.write("%s," % heading)
+
+
+            #  Add Users and orderbooks
+            f.write("Users, Associated accounts:\n")
+            for users, orderbooks in sorted(self.users_orderbooks.iteritems()):
+                f.write("%s" % users)
+                for orderbook in sorted(orderbooks):
+                    f.write(",%s" % orderbook)
+                f.write("\n")
+
+
+
+
+        else:
+            f.write("Users:\n")
+            for user in self.users:
+                f.write(user + "\n")
+
         logging.debug("saving csv")
         f.close()
 
 
-class ExchangeAdapters(ProcessAnalyticData):
-    def __init__(self, conn_file, category):
-        ProcessAnalyticData.__init__(self, conn_file, category)
-        self.exchangeAdapter = {}
-        self.headings = None
+class ExchangeAdapters(object):
+    def __init__(self, xml, xmlroot):
+        self.xml = xml
+        self.xmlroot = xmlroot
 
     def globex(self):
         exchadapters = []
-        globex = {}
-        headings = []
+        self.exchange_details = {}
+        self.headings = []
 
         # Get exchange adapters
         for exchadapter in self.xmlroot.find(".//Item[@name='Exchange Adapters']"):
@@ -307,16 +315,43 @@ class ExchangeAdapters(ProcessAnalyticData):
         for adapter in exchadapters:
             for values in self.xmlroot.find(
                     ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
-                if adapter not in globex:
-                    globex[adapter] = {}
-                self.exchangeAdapter[adapter][values.attrib.get('name')] = values.attrib.get('value')
+                if adapter not in self.exchange_details:
+                    self.exchange_details[adapter] = {}
+                self.exchange_details[adapter][values.attrib.get('name')] = values.attrib.get('value')
 
-        for dicts in globex:
-            logging.debug("%s: %s", dicts, globex[dicts].items())
+        for dicts in self.exchange_details:
+            logging.debug("%s: %s", dicts, self.exchange_details[dicts].items())
+
+
+
+        # for dicts in exchadapters:
+        #     for key in exchadapters[dicts]:
+        #         if key not in self.headings:
+        #             self.headings.append(key)
+        #
+        # print self.headings
+
+        return self.exchange_details, self.headings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
-
     # Parse command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--category", default="TestBed", choices=["Production", "TestBed", "BuildOut"],
@@ -328,11 +363,11 @@ def main():
     connection = ProcessAnalyticData(args.connection_file, args.category)
     ports = connection.get_ports()
     for conn in ports.values():
+        analytics_port = conn[4]
         # try:
         connection.connect_socket(conn)
         connection.receive_data()
-        connection.frontprice()
-        connection.user_orderbook()
+        connection.common_info(analytics_port)
         # except:
         #     pass
 
