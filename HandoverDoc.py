@@ -91,7 +91,6 @@ class CreateSocket(XMLProcess):
             logging.error('send failed')
             sys.exit()
 
-        print (self.new_socket)
 
     def receive_data(self):
         total_data = []
@@ -177,8 +176,10 @@ class ProcessAnalyticData(CreateSocket):
 
         ProcessAnalyticData.combine_users_and_orderbooks(self)
         ProcessAnalyticData.update_dictionary(self)
-        self.exchange_details, self.headings = ExchangeAdapters(self.xml, self.xmlroot).globex()
+        # self.exchange_details, self.headings = ExchangeAdapters(self.xml, self.xmlroot).ice()
         ProcessAnalyticData.create_csv(self)
+        # print self.exchange_details
+        # print self.headings
 
     def frontprice(self):
         if self.xmlroot.find(".//Item[@name='Client Adapters']//Item[@name='FIX42']//Item[@name='Listener Port']") is not None:
@@ -244,106 +245,160 @@ class ProcessAnalyticData(CreateSocket):
         for dicts in self.data:
             logging.debug("%s: %s", dicts, self.data[dicts])
 
+    def pick_exchange(self):
+        globex = ['ft4cme', 'ft4nym', 'ft4nymex', 'ft4cbt', 'ft4gbx']
+        ice = ['ft4ice']
+        lme = ['ft4lme']
+        eurex = ['ft4eur']
+        nlx = ['ft4nlx']
+
+        exchange = self.data['description'][2][:-1]  # ft4cme
+        adapter_detail = ExchangeAdapters(self.xml, self.xmlroot, self.f)
+        logging.debug("Getting %s specific data", exchange)
+        if exchange in globex:
+            adapter_detail.globex()
+        elif exchange in ice:
+            adapter_detail.ice()
+        else:
+            logging.error("Unknown Exchange for adapter details display")
+
     def create_csv(self):
         logging.debug("writing csv")
 
         #  Create csv as hostname_instance
-        f = open(self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv", "w")
-        f.write("Hostname:,%s\n" % self.data['hostname'][2])
-        f.write("Instance:,%s\n" % self.data["description"][2])
+        self.f = open(self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv", "w")
+        self.f.write("Hostname:,%s\n" % self.data['hostname'][2])
+        self.f.write("Instance:,%s\n" % self.data["description"][2])
 
         #  Add server IPS
-        f.write("Network IPs:\n")
+        self.f.write("Network IPs:\n")
         for network in self.networks:
-            f.write("%s,%s\n" % (network[0], network[1]))
-        f.write("\n")
+            self.f.write("%s,%s\n" % (network[0], network[1]))
+        self.f.write("\n")
 
         #  Add instance Port headings
         for lists in sorted(self.data.iterkeys(), reverse=True):
             if re.search(r'port|fix', lists):
-                f.write(self.data[lists][0] + ",")
-        f.write("\n")
+                self.f.write(self.data[lists][0] + ",")
+        self.f.write("\n")
         #  Add ports
         for lists in sorted(self.data.iterkeys(), reverse=True):
             if re.search(r'port|fix', lists):
-                f.write(self.data[lists][2] + ",")
-        f.write("\n")
-        f.write("\n")
+                self.f.write(self.data[lists][2] + ",")
+        self.f.write("\n")
+        self.f.write("\n")
 
         #  If FrontTrade Add user accounts and Exchange adapters, if Price just add users
         if self.data['type'][2] == 'FrontTrade':
             # Add Exchange adapter info
-            for heading in self.headings:
-                f.write("%s," % heading)
-
+            ProcessAnalyticData.pick_exchange(self)
 
             #  Add Users and orderbooks
-            f.write("Users, Associated accounts:\n")
+            self.f.write("\n")
+            self.f.write("\n")
+            self.f.write("Users, Associated accounts:\n")
             for users, orderbooks in sorted(self.users_orderbooks.iteritems()):
-                f.write("%s" % users)
+                self.f.write("%s" % users)
                 for orderbook in sorted(orderbooks):
-                    f.write(",%s" % orderbook)
-                f.write("\n")
+                    self.f.write(",%s" % orderbook)
+                self.f.write("\n")
 
 
 
 
         else:
-            f.write("Users:\n")
+            self.f.write("Users:\n")
             for user in self.users:
-                f.write(user + "\n")
+                self.f.write(user + "\n")
 
         logging.debug("saving csv")
-        f.close()
+        self.f.close()
 
 
 class ExchangeAdapters(object):
-    def __init__(self, xml, xmlroot):
+    def __init__(self, xml, xmlroot, f):
         self.xml = xml
         self.xmlroot = xmlroot
+        self.exchange_details = {}
+        self.headings = []
+        self.f = f
 
     def globex(self):
         exchadapters = []
-        self.exchange_details = {}
-        self.headings = []
+
+        # Get adapter configuration headings
+        for adapter_headings in self.xmlroot.find(".//Item[@name='Exchange Adapters']//Item[@name='Configuration']"):
+            logging.debug("Headings: %s", adapter_headings.attrib.get('name'))
+            self.headings.append(adapter_headings.attrib.get('name'))
+
+        self.headings.insert(0, 'Adapter Name')
 
         # Get exchange adapters
         for exchadapter in self.xmlroot.find(".//Item[@name='Exchange Adapters']"):
+            logging.debug("Adapters: %s", exchadapter.attrib.get('name'))
             exchadapters.append(exchadapter.attrib.get('name'))
 
-        # Collect all the exchange session info into a dictionary called Globex
+        for adapter in exchadapters:
+            # Get adapters and top level details
+            for values in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
+                if adapter not in self.exchange_details:
+                    self.exchange_details[adapter] = {}
+                self.exchange_details[adapter][values.attrib.get('name')] = [values.attrib.get('value')]
+            # Get Sub exchanges
+            for sub_exchanges in self.xmlroot.find(
+                ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Sub-Exchanges']" % adapter):
+                self.exchange_details[adapter]['Sub-Exchanges'].append(sub_exchanges.attrib.get('name'))
+            self.exchange_details[adapter]['Sub-Exchanges'].remove(None)
+            # Confirm logging enabled
+            self.exchange_details[adapter]['Logging'] = [self.xmlroot.find(
+                ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get('value')]
+
+        logging.debug("Writing Globex specific data")
+        for heading in sorted(self.headings):
+            self.f.write("%s," % heading)
+        self.f.write("\n")
+        for adapter in self.exchange_details:
+            self.f.write("%s," % adapter)
+            for heading in sorted(self.exchange_details[adapter].keys()):
+                self.f.write("%s," % ";".join(self.exchange_details[adapter][heading]))
+            self.f.write("\n")
+
+    def ice(self):
+        exchadapters = []
+
+        # Get adapter configuration headings
+        for adapter_headings in self.xmlroot.find(".//Item[@name='Exchange Adapters']//Item[@name='Configuration']"):
+            logging.debug("Headings: %s", adapter_headings.attrib.get('name'))
+            self.headings.append(adapter_headings.attrib.get('name'))
+        self.headings.insert(0, 'Adapter Name')
+
+        # get exchange adapters
+        for exchadapter in self.xmlroot.find(".//Item[@name='Exchange Adapters']"):
+            exchadapters.append(exchadapter.attrib.get('name'))
+
         for adapter in exchadapters:
             for values in self.xmlroot.find(
                     ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
                 if adapter not in self.exchange_details:
                     self.exchange_details[adapter] = {}
-                self.exchange_details[adapter][values.attrib.get('name')] = values.attrib.get('value')
-
-        for dicts in self.exchange_details:
-            logging.debug("%s: %s", dicts, self.exchange_details[dicts].items())
-
-
-
-        # for dicts in exchadapters:
-        #     for key in exchadapters[dicts]:
-        #         if key not in self.headings:
-        #             self.headings.append(key)
-        #
-        # print self.headings
+                self.exchange_details[adapter][values.attrib.get('name')] = [values.attrib.get('value')]
+            for sub_exchanges in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Sub-Exchanges']" % adapter):
+                self.exchange_details[adapter]['Sub-Exchanges'].append(sub_exchanges.attrib.get('name'))
+            self.exchange_details[adapter]['Sub-Exchanges'].remove(None)
+            for trader_logins in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Trader Logins']" % adapter):
+                self.exchange_details[adapter]['Trader Logins'].append(trader_logins.attrib.get('name'))
+            for connections in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Connection']" % adapter):
+                self.exchange_details[adapter]['Connection'].append(connections.attrib.get('value'))
+            self.exchange_details[adapter]['Connection'].remove(None)
+            self.exchange_details[adapter]['Logging'] = [self.xmlroot.find(
+                ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get(
+                'value')]
 
         return self.exchange_details, self.headings
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -368,6 +423,7 @@ def main():
         connection.connect_socket(conn)
         connection.receive_data()
         connection.common_info(analytics_port)
+        # connection.pick_exchange()
         # except:
         #     pass
 

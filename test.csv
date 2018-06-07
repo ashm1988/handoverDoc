@@ -1,0 +1,6 @@
+Adapter Name,Host; Port; Target Comp; Sender Comp; Sender Sub; Username,Logging,Sub-Exchanges,Trader Logins,
+ICEUK0,fixos-B1.theice.com; 80; ICE; 9232; 142; fmeobjos,true,IFLL; IFLO,fmeobj-fx,
+ICEUK1,fixos-B1.theice.com; 80; ICE; 9232; 143; fmeobjos1,true,IFLL; IFLO,fmeobj-fx1,
+ICEUK2,fixos-B1.theice.com; 80; ICE; 9232; 144; fmeobjos2,true,IFLL; IFLO,fmeobj-fx2,
+ICEUK3,fixos-B1.theice.com; 80; ICE; 9232; 145; fmeobjos3,true,IFLL; IFLO,fmeobj-fx3,
+ICEUK4,fixos-B1.theice.com; 80; ICE; 9232; 146; fmeobjos4,true,IFLL; IFLO,fmeobj-fx4,

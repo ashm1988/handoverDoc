@@ -47,10 +47,10 @@ class Testing:
     def printing(self):
         print self.inherit
 
+
 class Inherit(Testing):
     def __init__(self):
-        Testing.__init__(self):
-        pass
+        Testing.__init__(self)
 
     def printer(self):
         print self.inherit
