@@ -91,6 +91,7 @@ class CreateSocket(XMLProcess):
             logging.error('send failed')
             sys.exit()
 
+
     def receive_data(self):
         total_data = []
 
@@ -249,6 +250,7 @@ class ProcessAnalyticData(CreateSocket):
         ice = ['ft4ice']
         lme = ['ft4lme']
         eurex = ['ft4eur']
+        nord = ['ft4nord', 'ft4omx']
         nlx = ['ft4nlx']
 
         exchange = self.data['description'][2][:-1]  # ft4cme
@@ -260,11 +262,15 @@ class ProcessAnalyticData(CreateSocket):
             adapter_detail.ice()
         elif exchange in eurex:
             adapter_detail.eurex()
+        elif exchange in lme:
+            adapter_detail.lme()
+        elif exchange in nord:
+            adapter_detail.nord()
         else:
-            logging.error("Unknown Exchange for adapter details display")
+            logging.error("Unknown %s for adapter details display", exchange)
 
     def create_csv(self):
-        logging.debug("writing csv")
+        logging.debug("Write CSV: Writing %s", self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv")
 
         #  Create csv as hostname_instance
         self.f = open(self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv", "w")
@@ -349,7 +355,6 @@ class ExchangeAdapters(object):
                 ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get('value')]
 
         ExchangeAdapters.get_headings(self)
-        logging.debug("Writing Globex specific data")
         ExchangeAdapters.write_csv(self)
 
     def ice(self):
@@ -368,20 +373,20 @@ class ExchangeAdapters(object):
             for sub_exchanges in self.xmlroot.find(
                     ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Sub-Exchanges']" % adapter):
                 self.exchange_details[adapter]['Sub-Exchanges'].append(sub_exchanges.attrib.get('name'))
-            self.exchange_details[adapter]['Sub-Exchanges'].remove(None)
             for trader_logins in self.xmlroot.find(
                     ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Trader Logins']" % adapter):
                 self.exchange_details[adapter]['Trader Logins'].append(trader_logins.attrib.get('name'))
             for connections in self.xmlroot.find(
                     ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Connection']" % adapter):
-                self.exchange_details[adapter]['Connection'].append(connections.attrib.get('value'))
-            self.exchange_details[adapter]['Connection'].remove(None)
+                self.exchange_details[adapter][connections.attrib.get('name')] = [connections.attrib.get('value')]
             self.exchange_details[adapter]['Logging'] = [self.xmlroot.find(
                 ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get(
                 'value')]
+            del self.exchange_details[adapter]['Regulatory']
+            del self.exchange_details[adapter]['Execution Management']
+            del self.exchange_details[adapter]['Connection']
 
         ExchangeAdapters.get_headings(self)
-        logging.debug("Writing ICE specific data")
         ExchangeAdapters.write_csv(self)
 
     def eurex(self):
@@ -417,16 +422,59 @@ class ExchangeAdapters(object):
             del self.exchange_details[adapter]['Connection']
             del self.exchange_details[adapter]['Exchange Throttle']
             del self.exchange_details[adapter]['Regulatory']
-        # Remove 'None Values'
-        for adapter in self.exchange_details:
-            for value in self.exchange_details[adapter]:
-                for val in self.exchange_details[adapter][value]:
-                    if val is None:
-                        self.exchange_details[adapter][value].remove(None)
 
         ExchangeAdapters.get_headings(self)
-        logging.debug("Writing Eurex specific data")
         ExchangeAdapters.write_csv(self)
+
+    def lme(self):
+        for exchadapter in self.xmlroot.find(".//Item[@name='Exchange Adapters']"):
+            logging.debug("Adapters: %s", exchadapter.attrib.get('name'))
+            self.exchadapters.append(exchadapter.attrib.get('name'))
+        logging.debug("Adapters: %s", self.exchadapters)
+
+        for adapter in self.exchadapters:
+            # Get adapters and top level details
+            for values in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
+                if adapter not in self.exchange_details:
+                    self.exchange_details[adapter] = {}
+                self.exchange_details[adapter][values.attrib.get('name')] = [values.attrib.get('value')]
+            self.exchange_details[adapter]['Logging'] = [self.xmlroot.find(
+                ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get(
+                'value')]
+
+        ExchangeAdapters.get_headings(self)
+        ExchangeAdapters.write_csv(self)
+
+    def nord(self):
+        exchadapters = []
+
+        for exchadapter in self.xmlroot.find(".//Item[@name='Exchange Adapters']"):
+            logging.debug("Adapters: %s", exchadapter.attrib.get('name'))
+            self.exchadapters.append(exchadapter.attrib.get('name'))
+        logging.debug("Adapters: %s", self.exchadapters)
+        
+        for adapter in exchadapters:
+            for values in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']" % adapter):
+                if adapter not in self.exchange_details:
+                    self.exchange_details[adapter] = {}
+                self.exchange_details[adapter][values.attrib.get('name')] = [values.attrib.get('value')]
+            for connections in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Connection']" % adapter):
+                self.exchange_details[adapter][connections.attrib.get('name')] = [connections.attrib.get('value')]
+            for sub_exchange in self.xmlroot.find(
+                    ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Sub-Exchanges']" % adapter):
+                self.exchange_details[adapter]['Sub-Exchanges'].append(sub_exchange.attrib.get('name'))
+            self.exchange_details[adapter]['Logging'] = [self.xmlroot.find(
+                ".//Item[@name='Exchange Adapters']//Item[@name='%s']//Item[@name='Configuration']//Item[@name='Logging']//Item[@name='Enabled']" % adapter).attrib.get(
+                'value')]
+            del self.exchange_details[adapter]['Application ID']
+            del self.exchange_details[adapter]['Dedicated Trades']
+            del self.exchange_details[adapter]['Broker']
+            del self.exchange_details[adapter]['Broker Orders']
+            del self.exchange_details[adapter]['Synthetic Order Update']
+            del self.exchange_details[adapter]['Connection']
 
     def get_headings(self):
         for adapter in self.exchange_details:
@@ -435,6 +483,13 @@ class ExchangeAdapters(object):
         self.headings = list(set(self.headings))
 
     def write_csv(self):
+        # Remove 'None Values'
+        for adapter in self.exchange_details:
+            for value in self.exchange_details[adapter]:
+                for val in self.exchange_details[adapter][value]:
+                    if val is None:
+                        self.exchange_details[adapter][value].remove(None)
+
         for heading in sorted(self.headings):
             self.f.write("%s," % heading)
         self.f.write("\n")
