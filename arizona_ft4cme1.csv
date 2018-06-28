@@ -1,0 +1,93 @@
+Hostname:,arizona
+Instance:,ft4cme1
+Network IPs:
+lo,127.0.0.1
+eth2,172.28.101.10
+
+Risk Port,Frapi Port,FIX50SP1 Port,FIX50 Port,Analytics Port,
+40901,40201,40501,40401,40001,
+
+Adapter Name,Firm ID,Logging,Market Segment Gateway,Session ID,Sub-Exchanges,Target Address,Target Port,
+CME,004,true,false,8R8,CBCM;GLBX;MGCB;XCBT;XCEC;XCME;XFXS;XMGE;XNYM,69.50.112.141,25879,
+
+
+Users, Associated accounts:
+AshFix,Ash,AshFix
+AshFrapi,Ash
+AshRisk,Ash
+Ashfix_5sp1,AshFix
+FME1_CM_T1,FME1_CME_RP,FME2_CME_RP
+FME21_CB_T1,FME21_CB_T1
+FME21_CM_T1,FME21_CM_T1
+FME22_CM_T1,FME22_CM_T1
+FME2_CB_T1,FME2_CB_T1
+FME2_CM_T1,FME1_CME_RP,FME2_CME_RP
+FMET_CB_T1,FMET_CM_RP
+FMET_CB_T2,FMET_CM_RP
+FMET_CE_T1,FMET_CE_RP
+FMET_CE_T2,FMET_CE_RP
+FMET_CM_T1,FMET_CM_RP
+FMET_CM_T2,FMET_CM_RP
+FMET_CM_T3,FMET_CM_RP
+Inbar,Inbar
+Inbarrisk,Inbar
+Relative1,Relative
+acoulter,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+aholland,aholland
+amcfarlane,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+brian,brian_orderbook
+cmitchell,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+deltix1,deltix1
+deltix2,deltix2
+deltix3,deltix3
+dkawa,dkawa
+dkurth,dkurth
+dkurth-fix,dkurth
+edfmandc,starmark,starmark_other,starmark_sup,utrade
+finopiquez,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+fpotter,fpotter
+hertshten1,hertshten1
+hertshten2,hertshten2
+hertshten3,hertshten3
+hertshten4,hertshten4
+hertshten5,hertshten5
+inbar_sim1,Inbar
+inbar_sim2,Inbar
+jbenet,jbenet
+jbenet2,jbenet
+jfajardo,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+joefix5,jmetcalf
+joefrapi,jmetcalf
+joerisk,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+kk_fix5,kk_fix
+kk_fixdc,Exchange Member - Clearer,kk_fix,kk_test
+kk_risk,Exchange Member - Clearer,kk_fix,kk_test
+kk_rm,Exchange Member - Clearer,kk_fix,kk_test
+kk_test,Exchange Member - Clearer,kk_fix,kk_test
+kkirby,kkirby
+marexrisk,marex,marextest
+marextest,marextest
+marge,marge
+mcoyne,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+mgoettsch,mgoettsch
+miketrumbell,miketrumbell
+mvalencia,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+ndombkowski,nd,ndombkowski
+objectplus1,objectplus_RP
+objectplus2,objectplus_RP
+oc_risk,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+otmonitor,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+otmonitor2,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+otmonitor3,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+otrisk,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+pxayariboun,pxayariboun
+rbansal,Ash,AshFix,Brahman,Brahman1,Brahman2,Exchange Member - Clearer,FME CME,FME1_CME_RP,FME21_CB_T1,FME21_CM_T1,FME22_CM_T1,FME2_CB_T1,FME2_CME_RP,FMET_CB_RP,FMET_CE_RP,FMET_CM_RP,Inbar,JPM,Mike_orderbook,OT,Relative,Riskbone,SPN:9383523,acoulter,aholland,amcfarlane,brian_orderbook,ckatsulis,cm_test,deltix,deltix1,deltix2,deltix3,dkawa,dkurth,finopiquez,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jmetcalf,jpm_sim,jpm_sim1,jpm_sim2,jpm_sim3,jpm_sim4,jpm_sim5,kk_fix,kk_test,kkirby,marex,marextest,marge,mcoyne,metro_sim1,mgoettsch,miketrumbell,nd,ndombkowski,ne,ne-trader1,objectplus_RP,pxayariboun,rb_test,rbansal,rburling,remmer,sivron5,starmark,starmark_other,starmark_sup,tmorgan,tradingscreen,tscreen1,tscreen2,utrade,vegasoul,vegasoul_sim1
+remmer,remmer
+starmark_sup1,starmark_sup
+starmark_sup2,starmark_sup
+tmorgan,tmorgan
+utrade_1,utrade
+vegasoul_sim1,vegasoul_sim1
+vegasoul_sim2,vegasoul_sim1
+vegasoul_sim3,vegasoul_sim1
+vegasoul_sim4,vegasoul_sim1

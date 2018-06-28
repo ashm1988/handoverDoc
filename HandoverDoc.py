@@ -91,12 +91,12 @@ class CreateSocket(XMLProcess):
             logging.error('send failed')
             sys.exit()
 
-
     def receive_data(self):
         total_data = []
 
         while 1:
             data = self.new_socket.recv(8192)
+            logging.debug(data)
             if not re.search(r'result="error"', data):
                 if not re.search(r"</Response>", data):
                     total_data.append(data)
@@ -217,7 +217,7 @@ class ProcessAnalyticData(CreateSocket):
         # Collects all users and accociated parent orderbooks and adds them to the user_account dict as below example
         #                                                           user_account = {amcfarlane: [amcfarlane, ne, etc..]
         for users in self.xmlroot.find(".//Item[@name='User Management']//Item[@name='Users']"):
-            if users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']"):
+            if users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']") is not None:
                 user_accounts[users.attrib.get('name')] = []
                 for user in users.find(".//Item[@name='Permissions']//Item[@name='Trading']//Item[@name='Orderbooks']"):
                     user_accounts[users.attrib.get('name')].append(user.attrib.get('name'))
@@ -270,10 +270,11 @@ class ProcessAnalyticData(CreateSocket):
             logging.error("Unknown %s for adapter details display", exchange)
 
     def create_csv(self):
-        logging.debug("Write CSV: Writing %s", self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv")
+        csvname = self.data['hostname'][2] + '_' + self.data['description'][2] + ".csv"
+        logging.debug("Write CSV: Writing %s", csvname)
 
         #  Create csv as hostname_instance
-        self.f = open(self.data["hostname"][2] + "_" + self.data["description"][2] + ".csv", "w")
+        self.f = open(csvname, "w")
         self.f.write("Hostname:,%s\n" % self.data['hostname'][2])
         self.f.write("Instance:,%s\n" % self.data["description"][2])
 
@@ -318,7 +319,7 @@ class ProcessAnalyticData(CreateSocket):
             for user in self.users:
                 self.f.write(user + "\n")
 
-        logging.debug("saving csv")
+        logging.info("Saving %s", csvname)
         self.f.close()
 
 
