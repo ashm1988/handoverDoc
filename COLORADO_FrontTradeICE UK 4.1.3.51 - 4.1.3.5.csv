@@ -1,0 +1,73 @@
+Hostname:,COLORADO
+Instance:,FrontTradeICE UK 4.1.3.51 - 4.1.3.5
+Network IPs:
+Microsoft Virtual Machine Bus Network Adapter,172.28.101.11
+Microsoft Virtual Machine Bus Network Adapter #2,0.0.0.0
+Microsoft Virtual Machine Bus Network Adapter #4,0.0.0.0
+Microsoft Virtual Machine Bus Network Adapter #3,0.0.0.0
+
+Risk Port,Frapi Port,FIX50SP1 Port,FIX50 Port,Analytics Port,
+10712,10713,10715,10714,10718,
+
+
+
+Users, Associated accounts:
+AshFrapi,Ash
+Ashfix_5sp1,AshFix
+Divento_1,Divento
+Divento_2,Divento
+FME04_LF_T1,FME04_LF_RP
+FME11_LF_T1,FME11_LF_RP
+FME14_LF_T1,FME14_LF_RP
+FME16_LF_T1,FME16_LF_RP
+Inbar,Inbar
+Inbarrisk,Inbar
+acoulter,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+aholland,aholland
+amcfarlane,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+bgomez,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+brichardson,brichardson
+caplead1,caplead1
+capleadrisk,caplead1
+cmitchell,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+deltix1,deltix1
+deltix2,deltix2
+deltix3,deltix3
+finopiquez,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+fpotter,fpotter
+hertshten1,hertshten1
+hertshten2,hertshten2
+hertshten3,hertshten3
+hertshten4,hertshten4
+hertshten5,hertshten5
+jbetito,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+jfajardo,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+jfajardo_fix,jfajardo
+jfajardo_frapi,jfajardo
+joefix5,jmetcalf
+joefrapi,jmetcalf
+joerisk,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+jramos,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+jramos_fix,jramos
+jramos_frapi,jramos
+kk_fix5,kk_fix
+kk_fixdc,Exchange Member - Clearer,kk_fix,kk_test
+kk_test,Exchange Member - Clearer,kk_fix,kk_test
+kkirby,kkirby
+mcoyne,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+mcoynefix5,Mike,Mike_Orderbook
+mikesp1,Mike,Mike_Orderbook
+mvalencia,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+ndombkowski,nd,ndombkowski
+objectplus1,objectplus_RP
+objectplus2,objectplus_RP
+oc_risk,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+otmonitor,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+otmonitor2,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+otmonitor3,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+otrisk,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+panima_test,panima_test
+pxayariboun,pxayariboun
+rbansal,Ash,AshFix,Divento,Exchange Member - Clearer,FME ICEUK,FME Test,FME04_LF_RP,FME11_LF_RP,FME14_LF_RP,FME16_LF_RP,FME75_LF_RP,FME76_LF_RP,FME78_LF_RP,FME79_LF_RP,FME9_LF_RP,Inbar,Mike,Mike_Orderbook,Mike_orderbook,OT,acoulter,aholland,amcfarlane,brian_orderbook,brichardson,c_reyes,caplead1,cm_test,deltix,deltix1,deltix2,deltix3,fix50sp1,fpotter,hertshten,hertshten1,hertshten2,hertshten3,hertshten4,hertshten5,iang,iang2,iang_sub1,igrieves,jbenet,jfajardo,jmetcalf,jramos,kk_fix,kk_test,kkirby,mcoyne,metro,metro_sim1,metro_sim2,mgoettsch,miketrumbell,nd,ndombkowski,objectplus_RP,panima_test,pxayariboun,rb_test,rbansal,rburling,remmer,utrade
+remmer,remmer
+utrade_1,utrade

@@ -4,15 +4,13 @@ import argparse
 import socket
 import sys
 import re
+import os
+import zipfile
 import os.path
+import datetime
 
 # logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', filename='xml.log', filemode='w', level=logging.DEBUG)
 logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s', level=logging.DEBUG)
-# tree = ET.parse('XMLFile1.xml')
-# tree = ET.parse('ICE.xml')
-# tree = ET.parse('MSGW.xml')
-# self.xmlroot = tree.getroot()
-# FRVersion = "FR4"
 
 
 class XMLProcess(object):
@@ -68,35 +66,41 @@ class CreateSocket(XMLProcess):
             logging.debug('socket created')
         except socket.error as err:
             logging.error('socket connection: ' + str(err))
-            sys.exit()
+            raise Exception("Socket failed to connect: %s" % str(err))
 
         # Connect to the server
         logging.debug("connecting to %s:%s", connection[3], connection[4])
         try:
             self.new_socket.connect((connection[3], int(connection[4])))
         except socket.error as err:
-            logging.error(err)
-            sys.exit()
+            raise Exception(err)
 
         message = \
             '<Handshake version=\"2.0\"/>' \
-            '<Login username=\"amcfarlane\" passphrase=\"amcfarlane\" encryptMethod=\"none\"/>' \
-            '<Request updateType=\"snapshot\" type=\"items\"></Request>'
+            '<Login username=\"amcfarlane\" passphrase=\"amcfarlane\" encryptMethod=\"none\"/>'
 
-        # Send log on message
-        try:
-            self.new_socket.send(message)
-            logging.debug('sending handshake, login and requests')
-        except socket.error:
-            logging.error('send failed')
-            sys.exit()
+        self.new_socket.send(message)
+
+        while 1:
+            data = self.new_socket.recv(8192)
+            if not re.search(r'result="error"', data):
+                if re.search(r'<Login result="success"/>', data):
+                    logging.info(data)
+                    self.receive_data()
+                    break
+            else:
+                raise Exception(data)
 
     def receive_data(self):
         total_data = []
 
+        request = '<Request updateType=\"snapshot\" type=\"items\"></Request>'
+
+        self.new_socket.send(request)
+
         while 1:
             data = self.new_socket.recv(8192)
-            logging.debug(data)
+            # logging.debug(data)
             if not re.search(r'result="error"', data):
                 if not re.search(r"</Response>", data):
                     total_data.append(data)
@@ -110,7 +114,6 @@ class CreateSocket(XMLProcess):
 
         self.new_socket.close()
         logging.debug('Connection to analytics successful and data received')
-        del total_data[:2]
         self.xml = ''.join(total_data)
         # logging.debug("Received data: "+self.xml)
         self.xmlroot = ET.fromstring(self.xml)
@@ -247,7 +250,7 @@ class ProcessAnalyticData(CreateSocket):
 
     def pick_exchange(self):
         globex = ['ft4cme', 'ft4nym', 'ft4nymex', 'ft4cbt', 'ft4gbx']
-        ice = ['ft4ice']
+        ice = ['ft4iceuk', 'ft4iceeu', 'ft4iceus', 'ft4icecan']
         lme = ['ft4lme']
         eurex = ['ft4eur']
         nord = ['ft4nord', 'ft4omx']
@@ -322,6 +325,21 @@ class ProcessAnalyticData(CreateSocket):
         logging.info("Saving %s", csvname)
         self.f.close()
 
+    def zip_all(self):
+        path = os.path.dirname(os.path.abspath(__file__))
+        files = os.listdir(path)
+        fdate = datetime.date.today().strftime("%Y%m%d")
+        zf = zipfile.ZipFile(os.path.join(path, 'handoverdoc_%s.zip' % fdate), mode='w')
+        for f in files:
+            if f.endswith('.csv'):
+                logging.info('Zipiing %s', f)
+                zf.write(os.path.join(path, f), f, compress_type=zipfile.ZIP_DEFLATED)
+        zf.close()
+
+        for f in files:
+            if f.endswith('.csv'):
+                logging.info('deleting %s', f)
+                os.remove(os.path.join(path, f))
 
 class ExchangeAdapters(object):
     def __init__(self, xml, xmlroot, f):
@@ -514,13 +532,16 @@ def main():
     ports = connection.get_ports()
     for conn in ports.values():
         analytics_port = conn[4]
-        # try:
-        connection.connect_socket(conn)
-        connection.receive_data()
-        connection.common_info(analytics_port)
+        try:
+            connection.connect_socket(conn)
+        # connection.receive_data()
+            connection.common_info(analytics_port)
         # connection.pick_exchange()
-        # except:
-        #     pass
+        except Exception as err:
+            logging.error("%s", err)
+
+    connection.zip_all()
+    logging.info('Complete')
 
 
 if __name__ == '__main__':
